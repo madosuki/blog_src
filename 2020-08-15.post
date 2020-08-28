@@ -1,0 +1,19 @@
+;;;;;
+title: Gaming PCを組んでみて
+tags: none
+date: 2020-08-15 11:53:19
+format: md
+;;;;;
+
+長い間iMac mid 2011 21.5incをメインで使いつづけていたのですが、macOSはHigh Sierraまでしか使えずスペックも流石に辛く、PCを新調することしました。  
+最初はBTOにしようかと考えていたのですが、最終税抜価格に10%の消費税かかるのはエゲつなさを感じましたし、電源などのパーツでどのメーカーのを使っているのかとか考えると納得はできず、結局自作です。  
+一度もやったことないので工具とか揃えたので予想よりは高くついたのですがまぁまぁ楽しかったです。  
+電源はちゃんとしたメーカーのを使わないと気が気じゃないので。  
+
+Ryzen3600x + Radeon 5700XT(Sapphire Nitro+) + nvme m2 SSDは想像以上に快適でさいこーってなってます。いやまぁiMac mid 2011からの移行ならどれでもそうだろうと言われそうですがそうですねはい。
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.

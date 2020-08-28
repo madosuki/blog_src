@@ -1,0 +1,17 @@
+;;;;;
+title: ジェネレーター変えてみたのでテストポスト
+tags: 
+date: 2020-01-29 08:44:51
+format: md
+;;;;;
+
+<!-- **** your post here (remove this line) **** -->
+<!-- format: could be 'html' (for raw html) or 'md' (for markdown).  -->
+
+とりあえず，ブログジェネレーターをcoleslawに変えてみました．
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.

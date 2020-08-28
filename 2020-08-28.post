@@ -1,0 +1,15 @@
+;;;;;
+title: 最近はKotlinやRustをちょくちょくやってるというお話
+tags: pets, animal
+date: 2020-08-28 22:42:08
+format: md
+;;;;;
+
+特にこれといったことはないのだが，RustはNightly依存のライブラリにちょくちょく遭遇するのでstable運用したい時に困るなぁとかKotlinで簡単なAndroidアプリを作ってみたがAPI周りに苦しんだりJavaで書かれたサンプルばかりに遭遇するので面倒とかいう感想だけです．つらみ．
+
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.

@@ -1,0 +1,41 @@
+;;;;;
+title: Unofficial Lineage OS 17.1 on Nexus 6Pの導入方法のメモ
+tags: Android
+date: 2020-02-01 22:26:48
+format: md
+;;;;;
+
+<!-- **** your post here (remove this line) **** -->
+<!-- format: could be 'html' (for raw html) or 'md' (for markdown).  -->
+
+adb，fastboot導入済み且つ，PC側のOSはDebian10，Nexus6Pはファクトリーリセット済みて書かれた記事ということ踏まえて読んでください．
+   
+また，下記を実行して文鎮化しても責任は取れません．やるならあくまでも自己責任で．
+   
+<a href="https://forum.xda-developers.com/nexus-6p/orig-development/rom-lineageos-17-0-nexus-6p-angler-t4012099">Xdaへのリンク</a>
+   
+oem unlockedなNexus 6Pを用意して，上記リンクのスレッドの#3からFBE Recovery(4 Core)をダウンロードして，電源を切り，電源ボタンとボリュームキー下を押し続けるとブートローダー画面になるので下記を実行します．
+   
+```
+fastboot flash recovery twrp-3.3.1.0-FBE-10-angler4core.img
+```
+   
+後はボリュームキーで操作し，電源ボタンで決定してリカバリーモードを起動させます．
+   
+そうしたら，Wipeメニューからsystem，data，cacheをwipeしてからフォーマットを実行してください．
+   
+USBで繋げるとマウントされるので適当に上記リンク先にあるカスタムROMzipをダウンロードして，必要であるならばopengapps nano or picoをopengapps公式からダウンロードして，internalに放りこんでから，twrpのinstallをタップ，ファイルを選択してください．
+   
+opengappsを入れる場合は先にカスタムROMなzipを選択してから，more zipで追加してください．
+   
+インストールし終ったら，dalvik cacheをwipeするボタンが出るのでしてから，リブートしてください．
+   
+twrpアプリをインストールするか尋ねてきますがしないように．
+   
+リブートしてしばらく経てばOSが起動すると思いますが，失敗することがあるかもしれません．冒頭に書いてあるようにあくまでもやるなら自己責任で．以上． 
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.

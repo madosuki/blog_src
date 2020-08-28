@@ -1,0 +1,35 @@
+;;;;;
+title: Caveman2を利用する時の備忘録的なやつ
+tags: CommonLisp
+date: 2020-03-24 17:17:29
+format: md
+;;;;;
+
+Sessionはデフォルトだとインメモリーに保存されていますがapp.lispを編集すればDBに保存できます．
+  
+やり方自体はリポジトリにあるREADME読んでやれば良いですが，sessionsテーブルを要求してくるので作っておく必要があります（私の誤認識かもしれませんのであしからず）．
+  
+以下のSQL文のyour_database_nameを各自変更し実行すればいけると思います．
+  
+```
+CREATE TABLE your_database_name.sessions (id CHAR(72) PRIMARY KEY, session_data TEXT, created_at DATETIME, updated_at DATETIME);
+```
+
+  
+'(vector (unsigned-byte 8))を返す時にはlack形式で渡す必要があるのでdefroute内で下記の様にする．
+  
+```
+(let ((octet (sb-ext:string-to-octets :external-format :CP932))
+      (content-length (length octet))
+      (status 200)
+      (content-type "text/plain"))
+   `(,status (:content-type ,content-type :content-length ,content-length) ,octet))
+```
+  
+尚ファイルを読み込む場合は上記の様な面倒なことはせずにpathnameを返り値にすれば良いです．
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
