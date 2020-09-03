@@ -1,0 +1,15 @@
+;;;;;
+title: VOICEROIDの旧製品のインスール時のブルスク回避方法
+tags: vOICEROID
+date: 2020-09-04 08:15:05
+format: md
+;;;;;
+
+現行(2010-09-04時点)のWindows10ですとVOICEROID EXで認証に使われているHASPが少なくとも昔私買ったDVD版だと古くてhardlock.sysがクラッシュしてブルスクします．  
+AIのFAQ[https://www.ai-j.jp/qa/q6/](https://www.ai-j.jp/qa/q6/)を見るとThales社のサイトから最新版をダウンロードしてインストールすればう良いようです．  
+ボイロのインストールに失敗した後にやるとその旨のダイアログが出ますが強行すればいけます．  
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
