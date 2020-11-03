@@ -1,0 +1,17 @@
+;;;;;
+title: Windows10 20H2 on KVMでvirtioを後から使う際にINACCESSIBLE_BOOT_DEVICEに遭遇した
+tags: KVM, Linux, Windows
+date: 2020-10-27 23:55:02
+format: md
+;;;;;
+
+解決方法を調べてみるとネットで転がっているのはbcdeditを使うものばかりですが，私の環境では上手くいきませんでした．  
+まぁ要するにvirtioドライバを読み込むようにすれば良いのでWindowsが入っているストレージはSATA等の正常に起動できるやつに戻しておいて，   
+ブートに関係ないセカンドストレージとして適当にvirtioなストレージを追加して普通にブートするだけでbcdeditで解決する例と同じことができます．    
+
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
