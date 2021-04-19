@@ -1,7 +1,7 @@
 ;;; -*- mode : lisp -*-
 (;; Required information
  :author "madosuki"                         ;; to be placed on post pages and in the copyright/CC-BY-SA notice
- :deploy-dir "/home/kouf/git_clones/madosuki.github.io/blog/"                ;; for Coleslaw's generated HTML to go in
+ :deploy-dir "/home/madosuki/git_clone/madosuki.github.io/blog/"                ;; for Coleslaw's generated HTML to go in
  :domain "https://madosuki.github.io/blog"                           ;; to generate absolute links to the site content. Note: with :cname option of gh-pages, this requires a url scheme, e.g. https://fake.org 
  :routing ((:post           "posts/~a") ;; to determine the URL scheme of content on the site
            (:tag-index      "tag/~a")
