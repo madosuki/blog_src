@@ -5,7 +5,8 @@ date: 2021-04-19 23:47:20
 format: md
 ;;;;;
 
-Caveman2でセッションを有効するには，app.lispにあるbuilderマクロで```:session```を書けばいいことはREADMEに書かれているのでそこは問題無いのですが，cookieのexpiresやデフォルトではlack.sessionにkeyを書き換えたいとなるとこれではさっぱりわからず依存しているlackのソース共々読む必要があります．  
+Caveman2でセッションを有効するには，app.lispにあるbuilderマクロで```:session```を書けばいいことはREADMEに書かれているのでそこは問題無いのですが，cookieのexpiresやセッション名となっているcookieキーの変更方法は書かれておらずソースを読む必要がありました．   
+  
   
 [https://github.com/fukamachi/lack/blob/master/src/builder.lisp](https://github.com/fukamachi/lack/blob/master/src/builder.lisp)を読むとlackのミドルウェアか判別して実行する展開する箇所があります．
 :sessionを渡すとlack.middleware.sessionを実行するということなので，  
@@ -17,15 +18,17 @@ app.lisp内で:lack.middleware.session.state.cookieをインポートして，bu
   :state (make-cookie-state
           :httponly t
           :cookie-key "myapp.session"
-          :expires 1800)
+          :expires 1800))
 ```
-すればset-cookieの値が変わっているはずです．  
+すればset-cookieの値が変わっているはずです．
   
-cookieを生成した現在時刻+ここでした秒数が最終的なexpiresになるのでこの例だと30分有効ということになります．  
+このcookie-stateは構造体であり[https://github.com/fukamachi/lack/blob/master/src/middleware/session/state/cookie.lisp](https://github.com/fukamachi/lack/blob/master/src/middleware/session/state/cookie.lisp)で定義されています．   
+   
+「cookieを生成した現在時刻+make-cookie-stateのexpiresキーで渡した秒数」が最終的なexpiresになるのでこの例だと30分有効ということになります．  
   
 個人的にはsamesiteを入れたいのですが入り組んでいて私ではわかりづらく難航しています．   
   
-まぁ元のlackの該当箇所を書き換えてしまった方が早いですがね．   
+まぁ元のlackの該当箇所を書き換えてしまった方が早いですが．   
 
 <!--more-->
 
