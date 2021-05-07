@@ -28,7 +28,18 @@ app.lisp内で:lack.middleware.session.state.cookieをインポートして，bu
   
 個人的にはsamesiteを入れたいのですが入り組んでいて私ではわかりづらく難航しています．   
   
-まぁ元のlackの該当箇所を書き換えてしまった方が早いですが．   
+まぁ元のlackの該当箇所を書き換えてしまった方が早いですが．
+
+## 追記(2021-05-07)
+私がlackに出していたPRがマージされたので現在のバージョンであれば，   
+```
+(:session
+    :state (make-cookie-state
+            :samesite :lax))
+```
+の様にキーワードで渡してsamesiteキーワードに渡してやればSet-CookieにSameSite=Laxが追加されます．   
+何も指定しなければNoneになります．   
+Strictにするには:strictキーワードをどうぞ．   
 
 <!--more-->
 
