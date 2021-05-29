@@ -1,5 +1,5 @@
 ;;;;;
-title: Fableを試してみる前にやったこと
+title: Fableプロジェクトを1から手動で作る方法的な私的メモ
 tags: Fsharp
 date: 2021-05-29 11:26:48
 format: md
@@ -24,16 +24,16 @@ webpack.config.jsの中身とかはそこからの流用です．
 
 # Process
    
-- Step 1: Create Project Directory
+- Step 1: Create Project Directory  
 適当にmkdirでproject dirを作りましょう．  
 
-- Step 2: Create package.json
+- Step 2: Create package.json  
 project dir内でnpm initなりyarn initなりでpackage.jsonを作成しておきます．  
 
-- Step 3: Install dependencies webpack
+- Step 3: Install dependencies webpack  
 npmなら--save-dev，yarnなら-dをつけて，webpack，webpack-cli，webpack-dev-serverをインストールしておきます．  
 
-- Step 4: Write Script in package.json
+- Step 4: Write Script in package.json  
 ```
 "scripts": {
     "postinstall": "dotnet tool restore",
@@ -43,7 +43,7 @@ npmなら--save-dev，yarnなら-dをつけて，webpack，webpack-cli，webpack
 をpackage.json内に記述してください．  
 上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
 
-- Step 5: Create webpack.config.js
+- Step 5: Create webpack.config.js  
 webpack.config.jsをproject dir内で作成し，
 ```
 var path = require("path")
@@ -63,7 +63,7 @@ module.exports = {
 をwebpack.config.js内に記述します．  
 上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
 
-- Step 6: Install Fable command
+- Step 6: Install Fable command  
 ```
 dotnet new tool-manifest # if you are setting up this repo
 dotnet tool install --local Fable --version 3.2.1
@@ -71,12 +71,12 @@ dotnet tool install --local Fable --version 3.2.1
 以上をproject dir内で行うと.configディレクトリとその中にdotnet-tools.jsonが作られます．  
 これでscriptを動かすために必要なコマンドが揃いました．  
 
-- Step 7: Create src directory
+- Step 7: Create src directory  
 今まで書いてきた設定ファイルに沿ったdir nameにします．  
 つまりproject dirでmkdir srcします．  
 次からはこのsrcディレクトリ内で作業します  
 
-- Step 8: Create App.fsproj
+- Step 8: Create App.fsproj  
 ```
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -97,7 +97,7 @@ dotnet tool install --local Fable --version 3.2.1
 ```
 App.fsprojに上記内容を記述．  
 
-- Step 9: Create App.fs
+- Step 9: Create App.fs  
 ```
 module App
 open Fable.Core.JsInterop
@@ -110,7 +110,7 @@ hOne.innerText <- "Replaced on Fable"
 上記を記述．  
 このファイルがjsに変換されます．  
 
-- Step 10: Set public files
+- Step 10: Set public files  
 project dirに戻り，mkdir publicして，中にindex.htmlを用意します．  
 index.htmlの中身は
 ```
@@ -130,7 +130,7 @@ index.htmlの中身は
 ```
 でいいです．  
 
-- Step 11: Run
+- Step 11: Run  
 再びproject dirに戻り，npm run startなりyarn startなりすれば動くと思います．  
 
 
