@@ -77,6 +77,7 @@ dotnet tool install --local Fable --version 3.2.1
 次からはこのsrcディレクトリ内で作業します  
 
 - Step 8: Create App.fsproj  
+
 ```
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -95,6 +96,7 @@ dotnet tool install --local Fable --version 3.2.1
 
 </Project>
 ```
+  
 App.fsprojに上記内容を記述．  
 
 - Step 9: Create App.fs  
