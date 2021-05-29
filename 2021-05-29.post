@@ -34,17 +34,20 @@ project dir内でnpm initなりyarn initなりでpackage.jsonを作成してお�
 npmなら--save-dev，yarnなら-dをつけて，webpack，webpack-cli，webpack-dev-serverをインストールしておきます．  
 
 - Step 4: Write Script in package.json  
+  
 ```
 "scripts": {
     "postinstall": "dotnet tool restore",
     "start": "dotnet fable watch src --run webpack serve"
 }
 ```
+  
 をpackage.json内に記述してください．  
 上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
 
 - Step 5: Create webpack.config.js  
-webpack.config.jsをproject dir内で作成し，
+webpack.config.jsをproject dir内で作成し，  
+  
 ```
 var path = require("path")
 module.exports = {
@@ -59,15 +62,18 @@ module.exports = {
         port: 8080,
     }
 }
-```
+```  
+  
 をwebpack.config.js内に記述します．  
 上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
 
 - Step 6: Install Fable command  
+  
 ```
 dotnet new tool-manifest # if you are setting up this repo
 dotnet tool install --local Fable --version 3.2.1
-```
+```  
+  
 以上をproject dir内で行うと.configディレクトリとその中にdotnet-tools.jsonが作られます．  
 これでscriptを動かすために必要なコマンドが揃いました．  
 
@@ -99,7 +105,8 @@ dotnet tool install --local Fable --version 3.2.1
   
 App.fsprojに上記内容を記述．  
 
-- Step 9: Create App.fs  
+- Step 9: Create App.fs
+  
 ```
 module App
 open Fable.Core.JsInterop
@@ -108,13 +115,15 @@ let window = Browser.Dom.window
 
 let mutable hOne : Browser.Types.HTMLElement = unbox window.document.getElementById "title"
 hOne.innerText <- "Replaced on Fable"
-```
+```  
+  
 上記を記述．  
 このファイルがjsに変換されます．  
 
 - Step 10: Set public files  
 project dirに戻り，mkdir publicして，中にindex.htmlを用意します．  
-index.htmlの中身は
+index.htmlの中身は  
+  
 ```
 <!doctype html>
 <html>
@@ -129,7 +138,8 @@ index.htmlの中身は
     <script src="bundle.js"></script>
 </body>
 </html>
-```
+```  
+   
 でいいです．  
 
 - Step 11: Run  
