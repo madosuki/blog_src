@@ -1,0 +1,142 @@
+;;;;;
+title: Fableを試してみる前にやったこと
+tags: Fsharp
+date: 2021-05-29 11:26:48
+format: md
+;;;;;
+
+FableはF#コードをJavaScriptに変換してくれるやつです．  
+サンプルを試すだけなら[https://github.com/fable-compiler/fable3-samples](https://github.com/fable-compiler/fable3-samples)をgit cloneしてよしなにすれば良いのですが，自プロジェクトだと1から用意したくなります．なりますよね？  
+  
+公式チュートリアルだとテンプレートをインポートさせてdotnet newで簡単にできるようにする方法が紹介されていますが，この記事執筆時点では公式が用意しているテンプレートですとFable3に対応していないという注意書きも書かれています．  
+  
+仕方ないので手動で用意するかってなりました．まぁ私が知らないだけでもっとスマートなやり方がある気がしますが．  
+
+dotnet sdkとnodejsのインストールはmustなので割愛します．  
+
+上記のサンプルにありますbrowserサンプルを参考にしているので適宜参照します．  
+
+webpack.config.jsの中身とかはそこからの流用です．  
+
+それと間違っていることを書いてしまっている可能性があるのでここに書いてあることは参考程度に留めておくのがいいです．  
+
+一番良いのは公式のドキュメントやサンプルをチェックしていって試行錯誤していくことですが，ただそれだと私の様なアホだとサンプルコード読んでお終いとなりがちなので（私だけかもしれないが）自分でFableプロジェクトを作る方法ぐらいはここに自分用にメモして忘れた時に読む用にというのがこの記事の目的です．  
+
+# Process
+   
+- Step 1: Create Project Directory
+適当にmkdirでproject dirを作りましょう．  
+
+- Step 2: Create package.json
+project dir内でnpm initなりyarn initなりでpackage.jsonを作成しておきます．  
+
+- Step 3: Install dependencies webpack
+npmなら--save-dev，yarnなら-dをつけて，webpack，webpack-cli，webpack-dev-serverをインストールしておきます．  
+
+- Step 4: Write Script in package.json
+```
+"scripts": {
+    "postinstall": "dotnet tool restore",
+    "start": "dotnet fable watch src --run webpack serve"
+}
+```
+をpackage.json内に記述してください．  
+上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
+
+- Step 5: Create webpack.config.js
+webpack.config.jsをproject dir内で作成し，
+```
+var path = require("path")
+module.exports = {
+    mode: "development",
+    entry: "./src/App.fs.js",
+    output: {
+        path: path.join(__dirname, "./public"),
+        filename: "bundle.js",
+    },
+    devServer: {
+        contentBase: "./public",
+        port: 8080,
+    }
+}
+```
+をwebpack.config.js内に記述します．  
+上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
+
+- Step 6: Install Fable command
+```
+dotnet new tool-manifest # if you are setting up this repo
+dotnet tool install --local Fable --version 3.2.1
+```
+以上をproject dir内で行うと.configディレクトリとその中にdotnet-tools.jsonが作られます．  
+これでscriptを動かすために必要なコマンドが揃いました．  
+
+- Step 7: Create src directory
+今まで書いてきた設定ファイルに沿ったdir nameにします．  
+つまりproject dirでmkdir srcします．  
+次からはこのsrcディレクトリ内で作業します  
+
+- Step 8: Create App.fsproj
+```
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="App.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fable.Browser.Dom" Version="2.4.4" />
+    <PackageReference Include="Fable.Core" Version="3.2.7" />
+  </ItemGroup>
+
+</Project>
+```
+App.fsprojに上記内容を記述．  
+
+- Step 9: Create App.fs
+```
+module App
+open Fable.Core.JsInterop
+
+let window = Browser.Dom.window
+
+let mutable hOne : Browser.Types.HTMLElement = unbox window.document.getElementById "title"
+hOne.innerText <- "Replaced on Fable"
+```
+上記を記述．  
+このファイルがjsに変換されます．  
+
+- Step 10: Set public files
+project dirに戻り，mkdir publicして，中にindex.htmlを用意します．  
+index.htmlの中身は
+```
+<!doctype html>
+<html>
+<head>
+  <title>Fable</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="fable.ico" />
+</head>
+<body>
+    <h1 id="title">Test</h1>
+    <script src="bundle.js"></script>
+</body>
+</html>
+```
+でいいです．  
+
+- Step 11: Run
+再びproject dirに戻り，npm run startなりyarn startなりすれば動くと思います．  
+
+
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
