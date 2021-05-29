@@ -62,7 +62,7 @@ module.exports = {
         port: 8080,
     }
 }
-```  
+```
   
 をwebpack.config.js内に記述します．  
 上記のはfable3-samples/browser内のをコピペしただけですので，単純にそっちからコピーしてきても良いです．  
@@ -72,7 +72,7 @@ module.exports = {
 ```
 dotnet new tool-manifest # if you are setting up this repo
 dotnet tool install --local Fable --version 3.2.1
-```  
+```
   
 以上をproject dir内で行うと.configディレクトリとその中にdotnet-tools.jsonが作られます．  
 これでscriptを動かすために必要なコマンドが揃いました．  
@@ -115,7 +115,7 @@ let window = Browser.Dom.window
 
 let mutable hOne : Browser.Types.HTMLElement = unbox window.document.getElementById "title"
 hOne.innerText <- "Replaced on Fable"
-```  
+```
   
 上記を記述．  
 このファイルがjsに変換されます．  
@@ -138,7 +138,7 @@ index.htmlの中身は
     <script src="bundle.js"></script>
 </body>
 </html>
-```  
+```
    
 でいいです．  
 
