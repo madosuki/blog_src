@@ -44,6 +44,10 @@ Strictにするには:strictキーワードをどうぞ．
 ### 追記(2021/05/07 16:50 JST)
 caveman2 projectのproject-name.asdの:depends-on内で"lack.middleware.session"かそれをインポートしているライブラリを指定する必要があるということを書いておくのを忘れていました．  
 
+### 追記修正(2021/06/16 JST)
+上記の"lack.middleware.session"ではなく"lack-middleware-session"でした．  
+  
+
 <!--more-->
 
 Excerpt separator can also be extracted from content.
