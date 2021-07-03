@@ -55,7 +55,11 @@ sbsign --key MOK.key --cert MOK.crt --output /boot/efi/EFI/gentoo/grubx64.efi /b
 ```  
   
 以上．  
-UEFIに戻ってセキュアブートを有効にして，shimラベルのやつをブートに指定すればmmx64.efiが起動して証明書を指定するように言われるのでそれをして再起動すればブートできると思う．  
+UEFIに戻ってセキュアブートを有効にして，shimラベルのやつをブートに指定すればmmx64.efiが起動して証明書を指定するように言われるのでそれをして再起動すればブートできるだろう．  
+  
+# 追記
+カーネルやGRUBをアップデートする度に証明する必要がある．  
+またgrub-mkconfigで設定をアップデートする際にEFIが書き換えられて手動定義したラベルが消えるっぽいのでefibootmgrで登録し直す必要があるだろう(回避策があるかもしれないが調べるの面倒なので)．  
 
 # 参考文献
 - [https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim)  
