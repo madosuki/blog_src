@@ -1,0 +1,70 @@
+;;;;;
+title: インストール済みのGentooをセキュアブートで起動できるように設定した時のメモ
+tags: Gentoo, Linux
+date: 2021-07-03 09:42:56
+format: md
+;;;;;
+
+前提条件としてセキュアブートをオフにしてインストールしたGentooかつ，ブートローダーにGRUB2をinitにsystemdを採用し尚且つsys-boot/shim，app-crypt/sbsigntools，sys-boot/efibootmgrをインストール済みの状態であることを想定している．  
+GRUBインストール時のオプションは  
+```  
+sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --modules="tpm" --disable-shim-lock
+```  
+を想定．これについては[こちら](https://forum.manjaro.org/t/grub-fails-to-load-with-shim-and-secure-boot-enabled/62522/2)を参照．しておかないとブート時にエラーが出る．UEFIでTPMを有効しないといけないかは検証していない（多分要る気はする）．  
+セキュアブートとTPMの有効方法はマザーボードごとに違ったりするのでここでは触れない．  
+またここに書かれていることは2021-07-03時点の物であり，環境差もあるので動作を保証しない．  
+
+# setup shim
+```  
+cp /usr/share/shim/BOOTX64.EFI /boot/efi/EFI/gentoo/ && cp /usr/share/shim/mmx64.efi /boot/efi/EFIT/gentoo/
+```  
+
+
+## EFIに登録する  
+  
+  
+```  
+efibootmgr -c -d /dev/nvme0n1 -p 1 -L "shim" -l "\EFI\gentoo\BOOTX64.EFI" 
+```  
+  
+  
+dオプションはEFIパーティションのあるデバイスをpオプションにはパーティションナンバーを入れる．  
+
+# Sign to kernel and grub
+opensslを使う．  
+[参考URL](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim)  
+```  
+openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -subj "/CN= My Key /" -out MOK.crt  
+```  
+daysオプションで有効期限を設定した方が良いかと思ったが煩わしいのでやめた．  
+   
+```  
+openssl x509 -outform DER -in MOK.crt -out MOK.cer
+ ```  
+ このcerファイルは/boot/efi/EFI/gentoo/に放り込んでおく．  
+ セキュアブートで起動した時に証明書が無いとmmx64.efiが起動し，keyを指定してenrollしろと言われるのでMOK.cerを置いた場所を指定する必要があるのでよしなにして．  
+   
+   
+ ```  
+ sbsign --key MOK.key --cert MOK.crt --output vmlinuz-path vmlinuz-path
+ ```  
+vmlinux-pathのところを/boot/下にある署名したいvmlinuzファイルのパスに置き換えて実行．  
+   
+```  
+sbsign --key MOK.key --cert MOK.crt --output /boot/efi/EFI/gentoo/grubx64.efi /boot/efit/EFI/gentoo/grubx64.efi
+```  
+  
+以上．  
+UEFIに戻ってセキュアブートを有効にして，shimラベルのやつをブートに指定すればmmx64.efiが起動して証明書を指定するように言われるのでそれをして再起動すればブートできると思う．  
+
+# 参考文献
+- [https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim)  
+- [https://forums.gentoo.org/viewtopic-t-1132536-start-0.html](https://forums.gentoo.org/viewtopic-t-1132536-start-0.html)  
+- [https://forum.manjaro.org/t/grub-fails-to-load-with-shim-and-secure-boot-enabled/62522/2](https://forum.manjaro.org/t/grub-fails-to-load-with-shim-and-secure-boot-enabled/62522/2)  
+ 
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
