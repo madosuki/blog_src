@@ -1,0 +1,33 @@
+;;;;;
+title: Caveman2で明示的なセッションIDの更新とセッション終了方法についてのメモ
+tags: Common Lisp, Caveman2, Web
+date: 2021-07-09 22:30:43
+format: md
+;;;;;
+
+ログインログアウト機能を実装する際，ログイン時にセッションIDの変更とログアウト時にセッションを終了させる処理を入れることがセッションハイジャックへの対策の一つであるが，方法がドキュメントには載っていない．  
+なので適当に検索してみたら[http://diary.wshito.com/comp/lisp/clack/lack-middleware-session/#sec-example3](http://diary.wshito.com/comp/lisp/clack/lack-middleware-session/#sec-example3)が引っかかった．  
+lackを直接使ってる場合の方法ではあるが，役に立った．  
+envにある:lack.session.optionsにある値を見ているらしい．  
+とはいえ記事の例はあくまでもlackを直接使っている場合の物でCaveman2からenvを操作する方法がわからない．  
+どうしたらいいかとCaveman2のソースを読んでみたら，caveman.lispでlack.requestからrequest-envをインポートしているのがわかった．  
+これはlack/src/requst.lispにあり，構造体requestにあるenvスロットのアクセサーだ．このスロットというのはメンバ変数の様なものだ．  
+Common Lispでは構造体のスロットへのアクセスは"(構造体名-スロット名 インスタンス)"という形で行う．  
+ともかくこのenvが前述した記事で使っているenvでは？　と当たりをつけて試してみたらそうだった．  
+尚インスタンスは"\*request\*"としてningleからインポート&エクスポートされているので，  
+```  
+(setf (getf (getf (request-env *request*) :lack.session.options) :change-id) t)
+```  
+とすればセッションIDの更新ができた．  
+change-idをexpireにすればセッションの終了ができる．  
+```  
+(setf (getf (getf (request-env *request*) :lack.session.options) :expire) t)
+```  
+  
+  
+
+<!--more-->
+
+Excerpt separator can also be extracted from content.
+Add `excerpt: <string>` to the above metadata.
+Excerpt separator is `<!--more-->` by default.
