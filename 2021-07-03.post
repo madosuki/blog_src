@@ -32,7 +32,7 @@ dオプションはEFIパーティションのあるデバイスをpオプショ
 
 # Sign to kernel and grub
 opensslを使う．  
-[参考URL](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim)  
+[参考URL:https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#shim)  
 ```  
 openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -subj "/CN= My Key /" -out MOK.crt  
 ```  
@@ -48,10 +48,11 @@ openssl x509 -outform DER -in MOK.crt -out MOK.cer
  ```  
  sbsign --key MOK.key --cert MOK.crt --output vmlinuz-path vmlinuz-path
  ```  
-vmlinux-pathのところを/boot/下にある署名したいvmlinuzファイルのパスに置き換えて実行．  
+vmlinuz-pathのところを/boot/下にある署名したいvmlinuzファイルのパスに置き換えて実行．  
+## Example:
    
 ```  
-sbsign --key MOK.key --cert MOK.crt --output /boot/efi/EFI/gentoo/grubx64.efi /boot/efit/EFI/gentoo/grubx64.efi
+sbsign --key MOK.key --cert MOK.crt --output /boot/efi/EFI/gentoo/grubx64.efi /boot/efi/EFI/gentoo/grubx64.efi
 ```  
   
 以上．  
@@ -66,9 +67,3 @@ UEFIに戻ってセキュアブートを有効にして，shimラベルのやつ
 - [https://forums.gentoo.org/viewtopic-t-1132536-start-0.html](https://forums.gentoo.org/viewtopic-t-1132536-start-0.html)  
 - [https://forum.manjaro.org/t/grub-fails-to-load-with-shim-and-secure-boot-enabled/62522/2](https://forum.manjaro.org/t/grub-fails-to-load-with-shim-and-secure-boot-enabled/62522/2)  
  
-
-<!--more-->
-
-Excerpt separator can also be extracted from content.
-Add `excerpt: <string>` to the above metadata.
-Excerpt separator is `<!--more-->` by default.
