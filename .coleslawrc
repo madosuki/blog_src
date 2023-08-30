@@ -1,21 +1,23 @@
 ;;; -*- mode : lisp -*-
 (;; Required information
  :author "madosuki"                         ;; to be placed on post pages and in the copyright/CC-BY-SA notice
- :deploy-dir "/home/madosuki/git_clones/madosuki.github.io/blog/"                ;; for Coleslaw's generated HTML to go in
- :domain "https://madosuki.github.io/blog"                           ;; to generate absolute links to the site content. Note: with :cname option of gh-pages, this requires a url scheme, e.g. https://fake.org 
+ :deploy-dir "/home/user/git_clones/madosuki.github.io/blog"                ;; for Coleslaw's generated HTML to go in
+ :domain "https://madosuki.github.io"                           ;; to generate absolute links to the site content. Note: with :cname option of gh-pages, this requires a url scheme, e.g. https://fake.org 
  :routing ((:post           "posts/~a") ;; to determine the URL scheme of content on the site
            (:tag-index      "tag/~a")
            (:month-index    "date/~a")
            (:numeric-index  "~d")
            (:feed           "~a.xml")
-           (:tag-feed       "tag/~a.xml"))
+           (:tag-feed       "tag/~a.xml")
+           (:sitemap        "~a.xml"))
  :title "(随筆 :tendency 自堕落)" ;; a site title
  :theme "readable"                        ;; to select one of the themes in "coleslaw/themes/"
  
  ;; Optional information
  :excerpt-sep "<!--more-->"           ;; to set the separator for excerpt in content 
  :feeds ("lisp")
- :plugins ((disqus :shortname "my-site-name")
+ :plugins ((analytics :tracking-code "foo")
+           (disqus :shortname "my-site-name")
            ; (incremental)  ;; *Remove comment to enable incremental builds.
            (mathjax)
            (sitemap)
@@ -30,9 +32,9 @@
            ;; default deploy method is rsync
            (rsync "-avz" "--delete" "--exclude" ".git/" "--exclude" ".gitignore" "--copy-links")
           )
- :sitenav ((:url "https://madosuki.github.io/" :name "Home")
-           (:url "https://twitter.com/madosuki_public" :name "Twitter")
-           (:url "https://github.com/madosuki" :name "Code"))
+ :sitenav ((:url "http://madosuki.github.com/" :name "Home")
+           (:url "http://twitter.com/madosuki_public" :name "Twitter")
+           (:url "http://github.com/madosuki" :name "Code"))
  :staging-dir "/tmp/coleslaw/"  ;; for Coleslaw to do intermediate work, default: "/tmp/coleslaw"
 )
 
