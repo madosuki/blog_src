@@ -7,7 +7,7 @@ format: md
 
 Caveman2ではapp.lisp内でlackのbuilderを使ってappを生成してそれに対してclackupを動かすという流れになっている。  
 このbuilderで
-```
+```lisp
  (:session
   :store (make-dbi-store :connector (lambda ()
                                       (apply #'dbi:connect
@@ -32,10 +32,3 @@ README.mdのこの箇所にも書かれているが詳細は[ソース](https://
           :expires 1800))
 ```
 make-cookie-stateの箇所は必要が無いが使い方のメモとして残しておく。　　
-
-
-<!--more-->
-
-Excerpt separator can also be extracted from content.
-Add `excerpt: <string>` to the above metadata.
-Excerpt separator is `<!--more-->` by default.
