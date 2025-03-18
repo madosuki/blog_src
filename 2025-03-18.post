@@ -7,17 +7,20 @@ format: md
 
 Caveman2ではapp.lisp内でlackのbuilderを使ってappを生成してそれに対してclackupを動かすという流れになっている。  
 このbuilderで
-```lisp
+<pre>
+```
  (:session
   :store (make-dbi-store :connector (lambda ()
                                       (apply #'dbi:connect
                                              (your-package-name.db:connection-settings)))))
 ```
+</pre>
 とするとRDBMSにセッション情報を保存できるようになる。  
 README.mdのこの箇所にも書かれているが詳細は[ソース](https://github.com/fukamachi/lack/blob/master/src/middleware/session/store/dbi.lisp) を読まないわからない。  
 ソースを読めばわかるがfetch-sessionメソッドがwith-db-connectionマクロを使用していて自動的に接続を閉じれるようになっている。  
 しかし、それはdisconnectorキーワードで閉じる際に使用する関数を指定している場合であり、初期値はnilなのでただ単に上記のようにすると開きっぱなしになってしまう。  
 なので、下記の様にdisconnectorキーワード使って関数を渡してやる必要がある。  
+<pre>
 ```
  (:session
   :store (make-dbi-store :connector (lambda ()
@@ -31,4 +34,5 @@ README.mdのこの箇所にも書かれているが詳細は[ソース](https://
           :secure t
           :expires 1800))
 ```
+</pre>
 make-cookie-stateの箇所は必要が無いが使い方のメモとして残しておく。　　
