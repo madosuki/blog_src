@@ -16,8 +16,9 @@
  ;; Optional information
  :excerpt-sep "<!--more-->"           ;; to set the separator for excerpt in content 
  :feeds ("lisp")
- :plugins ((analytics :tracking-code "foo")
-           (disqus :shortname "my-site-name")
+ :plugins (
+           ;; (analytics :tracking-code "foo")
+           ;; (disqus :shortname "my-site-name")
            ; (incremental)  ;; *Remove comment to enable incremental builds.
            (mathjax)
            (sitemap)
@@ -32,9 +33,9 @@
            ;; default deploy method is rsync
            (rsync "-avz" "--delete" "--exclude" ".git/" "--exclude" ".gitignore" "--copy-links")
           )
- :sitenav ((:url "http://madosuki.github.com/" :name "Home")
-           (:url "http://twitter.com/madosuki_public" :name "Twitter")
-           (:url "http://github.com/madosuki" :name "Code"))
+ :sitenav ((:url "http://madosuki.github.io/" :name "Home")
+           (:url "http://x.com/madosuki_public" :name "X")
+           (:url "http://github.com/madosuki" :name "Codes"))
  :staging-dir "/tmp/coleslaw/"  ;; for Coleslaw to do intermediate work, default: "/tmp/coleslaw"
 )
 
